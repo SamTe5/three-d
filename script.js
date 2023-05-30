@@ -9,7 +9,7 @@ function createScene() {
     renderer.setSize(window.innerWidth, window.innerHeight)
     document.querySelector(".webgl").appendChild(renderer.domElement)
 
-    createBox(1,1,1,0x00ff00)
+    createBox("box1",1,1,1,0x00ff00)
 
    
     camera.position.x = 1
@@ -18,19 +18,26 @@ function createScene() {
     camera.lookAt(new THREE.Vector3(0, 0, 0))
 
 
+    
+}
+
+function render(){
     renderer.render(scene, camera)
+    scene.getObjectByName("box1").rotation.x+=0.01
+    requestAnimationFrame(render)
 }
 
 
-
-function createBox(w,h,d,color){
+function createBox(name,w,h,d,color){
     var geometry = new THREE.BoxGeometry(w, h, d)
     var material = new THREE.MeshBasicMaterial({ color: color })
     const mesh = new THREE.Mesh(geometry, material)
+    mesh.name=name
     scene.add(mesh)
 }
 
 
 createScene()
+render()
 
 
