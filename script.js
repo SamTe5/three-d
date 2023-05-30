@@ -21,13 +21,6 @@ function createScene() {
     
 }
 
-function render(){
-    renderer.render(scene, camera)
-    scene.getObjectByName("box1").rotation.x+=0.01
-    requestAnimationFrame(render)
-}
-
-
 function createBox(name,w,h,d,color){
     var geometry = new THREE.BoxGeometry(w, h, d)
     var material = new THREE.MeshBasicMaterial({ color: color })
@@ -35,6 +28,15 @@ function createBox(name,w,h,d,color){
     mesh.name=name
     scene.add(mesh)
 }
+
+function render(){
+    renderer.render(scene, camera)
+    scene.getObjectByName("box1").rotation.x+=0.01
+    requestAnimationFrame(render)
+}
+
+
+
 
 
 createScene()
