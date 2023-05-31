@@ -20,13 +20,17 @@ function createScene() {
     camera.position.y = 1
     camera.lookAt(new THREE.Vector3(0, 0, 0))
 
-    gui.add(scene.getObjectByName("box1").position,"x",0,5)
-    gui.add(scene.getObjectByName("box1").position,"y",0,5)
-    gui.add(scene.getObjectByName("box1").position,"z",0,5)
-    gui.add(scene.getObjectByName("box1").rotation,"x",0,5)
-    gui.add(scene.getObjectByName("box1").rotation,"y",0,5)
-    gui.add(scene.getObjectByName("box1").rotation,"z",0,5)
-    gui.addColor(params,"color").onChange(function(){
+    var fp=gui.addFolder("Position")
+    var fr=gui.addFolder("Rotation")
+    var fc=gui.addFolder("Color")
+
+    fp.add(scene.getObjectByName("box1").position,"x",0,5)
+    fp.add(scene.getObjectByName("box1").position,"y",0,5)
+    fp.add(scene.getObjectByName("box1").position,"z",0,5)
+    fr.add(scene.getObjectByName("box1").rotation,"x",0,5)
+    fr.add(scene.getObjectByName("box1").rotation,"y",0,5)
+    fr.add(scene.getObjectByName("box1").rotation,"z",0,5)
+    fc.addColor(params,"color").onChange(function(){
         scene.getObjectByName("box1").material.color.set(params.color)
     })
 }
