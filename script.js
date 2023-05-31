@@ -1,8 +1,11 @@
 var scene;
 var camera;
 var renderer;
+var params={color:0x00ff00}
 
 function createScene() {
+    var gui=new dat.GUI()
+
     scene = new THREE.Scene()
     camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 1, 1000)
     renderer = new THREE.WebGLRenderer()
@@ -17,8 +20,15 @@ function createScene() {
     camera.position.y = 1
     camera.lookAt(new THREE.Vector3(0, 0, 0))
 
-
-    
+    gui.add(scene.getObjectByName("box1").position,"x",0,5)
+    gui.add(scene.getObjectByName("box1").position,"y",0,5)
+    gui.add(scene.getObjectByName("box1").position,"z",0,5)
+    gui.add(scene.getObjectByName("box1").rotation,"x",0,5)
+    gui.add(scene.getObjectByName("box1").rotation,"y",0,5)
+    gui.add(scene.getObjectByName("box1").rotation,"z",0,5)
+    gui.addColor(params,"color").onChange(function(){
+        scene.getObjectByName("box1").material.color.set(params.color)
+    })
 }
 
 function createBox(name,w,h,d,color){
