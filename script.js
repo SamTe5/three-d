@@ -1,10 +1,11 @@
 var scene;
 var camera;
 var renderer;
+var gui;
 var params={color:0x00ff00}
 
 function createScene() {
-    var gui=new dat.GUI()
+    gui=new dat.GUI()
 
     scene = new THREE.Scene()
     camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 1, 1000)
@@ -71,10 +72,20 @@ function createBox(name,w,h,d,x,y,z,color){
 
 function createSpotLight(){
     var spotLight=new THREE.SpotLight(0xffffff)
-    spotLight.position.set(3,2,3)
+    spotLight.position.set(3,4,3)
     spotLight.castShadow=true
     spotLight.shadow.mapSize.width=4096
     spotLight.shadow.mapSize.height=4096
+
+    gui.add(spotLight,"penumbra",0,1).step(0.01)
+    gui.add(spotLight,"intensity",0,10)
+    gui.add(spotLight,"distance",0,10)
+    gui.add(spotLight,"decay",0,10)
+    gui.add(spotLight,"power",0,10)
+    gui.add(spotLight.position,"x",0,10)
+    gui.add(spotLight.position,"y",0,10)
+    gui.add(spotLight.position,"z",0,10)
+
     scene.add(spotLight)
 }
 
