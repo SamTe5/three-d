@@ -21,8 +21,8 @@ function createScene() {
 
    
     camera.position.x = 1
-    camera.position.z = 4
-    camera.position.y = 3
+    camera.position.z = 10
+    camera.position.y = 5
     camera.lookAt(new THREE.Vector3(0, 0, 0))
 
     var gridHelper=new THREE.GridHelper(5,10, 0xff0000,0x555555)
@@ -76,6 +76,8 @@ function createSpotLight(){
     spotLight.castShadow=true
     spotLight.shadow.mapSize.width=4096
     spotLight.shadow.mapSize.height=4096
+    spotLight.penumbra=1
+    spotLight.intensity=2
 
     gui.add(spotLight,"penumbra",0,1).step(0.01)
     gui.add(spotLight,"intensity",0,10)
@@ -85,6 +87,15 @@ function createSpotLight(){
     gui.add(spotLight.position,"x",0,10)
     gui.add(spotLight.position,"y",0,10)
     gui.add(spotLight.position,"z",0,10)
+
+
+    var helper=new THREE.SpotLightHelper(spotLight)
+    scene.add(helper)
+
+    var chelper=new THREE.CameraHelper(spotLight.shadow.camera)
+    scene.add(chelper)
+
+    
 
     scene.add(spotLight)
 }
