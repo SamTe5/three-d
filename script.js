@@ -79,6 +79,15 @@ function createSpotLight(){
     spotLight.penumbra=1
     spotLight.intensity=2
 
+    spotLight.shadow.camera.near=2
+    spotLight.shadow.camera.far=10
+    spotLight.shadow.camera.fow=30
+
+    var target=new THREE.Object3D()
+    target.position.set(-10,0,-10)
+    spotLight.target=target
+    scene.add(target)
+
     gui.add(spotLight,"penumbra",0,1).step(0.01)
     gui.add(spotLight,"intensity",0,10)
     gui.add(spotLight,"distance",0,10)
@@ -87,6 +96,9 @@ function createSpotLight(){
     gui.add(spotLight.position,"x",0,10)
     gui.add(spotLight.position,"y",0,10)
     gui.add(spotLight.position,"z",0,10)
+    gui.add(target.position,"x",-10,10)
+    gui.add(target.position,"y",-10,10)
+    gui.add(target.position,"z",-10,10)
 
 
     var helper=new THREE.SpotLightHelper(spotLight)
