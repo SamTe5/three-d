@@ -8,16 +8,20 @@ function createScene() {
 
     scene = new THREE.Scene()
     camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 1, 1000)
-    renderer = new THREE.WebGLRenderer()
+    renderer = new THREE.WebGLRenderer({physicallyCorrectLight:true, antialias:true, powerPreference:"high-performance"})
     renderer.setSize(window.innerWidth, window.innerHeight)
+    renderer.shadowMap.enabled=true
     document.querySelector(".webgl").appendChild(renderer.domElement)
 
-    createBox("box1",1,1,1,0x00ff00)
+    createBox("box1",1,1,1,0,0.5,0,0xffffff)
+    createBox("floor",10,1,10,0,-0.5,0,0xffffff)
+
+    
 
    
     camera.position.x = 1
     camera.position.z = 4
-    camera.position.y = 1
+    camera.position.y = 3
     camera.lookAt(new THREE.Vector3(0, 0, 0))
 
     var gridHelper=new THREE.GridHelper(5,10, 0xff0000,0x555555)
@@ -49,19 +53,35 @@ function createScene() {
     fc.addColor(params,"color").onChange(function(){
         scene.getObjectByName("box1").material.color.set(params.color)
     })
+
+    createSpotLight()
 }
 
-function createBox(name,w,h,d,color){
+function createBox(name,w,h,d,x,y,z,color){
     var geometry = new THREE.BoxGeometry(w, h, d)
-    var material = new THREE.MeshBasicMaterial({ color: color })
+    var material = new THREE.MeshStandardMaterial({ color: color })
     const mesh = new THREE.Mesh(geometry, material)
+    mesh.position.set(x,y,z)
     mesh.name=name
+    mesh.castShadow=true
+    mesh.receiveShadow=true
     scene.add(mesh)
 }
 
+
+function createSpotLight(){
+    var spotLight=new THREE.SpotLight(0xffffff)
+    spotLight.position.set(3,2,3)
+    spotLight.castShadow=true
+    spotLight.shadow.mapSize.width=4096
+    spotLight.shadow.mapSize.height=4096
+    scene.add(spotLight)
+}
+
+
 function render(){
     renderer.render(scene, camera)
-    scene.getObjectByName("box1").rotation.x+=0.01
+   // scene.getObjectByName("box1").rotation.x+=0.01
     requestAnimationFrame(render)
 }
 
@@ -70,6 +90,7 @@ function render(){
 
 
 createScene()
+
 render()
 
 
