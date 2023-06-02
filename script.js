@@ -31,6 +31,11 @@ function createScene() {
     var arrowHelper=new THREE.ArrowHelper(dir.normalize(),ori,1,0x687777)
     scene.add(arrowHelper)
 
+    var cameraHelper=new THREE.CameraHelper(camera)
+    scene.add(cameraHelper)
+
+
+
     var fp=gui.addFolder("Position")
     var fr=gui.addFolder("Rotation")
     var fc=gui.addFolder("Color")
