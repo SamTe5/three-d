@@ -26,6 +26,11 @@ function createScene() {
     var axesHelper=new THREE.AxesHelper(1)
     scene.add(axesHelper)
 
+    const dir=new THREE.Vector3(2,3,4)
+    const ori=new THREE.Vector3(0,0,0)
+    var arrowHelper=new THREE.ArrowHelper(dir.normalize(),ori,1,0x687777)
+    scene.add(arrowHelper)
+
     var fp=gui.addFolder("Position")
     var fr=gui.addFolder("Rotation")
     var fc=gui.addFolder("Color")
