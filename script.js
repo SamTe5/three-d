@@ -20,6 +20,12 @@ function createScene() {
     camera.position.y = 1
     camera.lookAt(new THREE.Vector3(0, 0, 0))
 
+    var gridHelper=new THREE.GridHelper(5,10, 0xff0000,0x555555)
+    scene.add(gridHelper)
+
+    var axesHelper=new THREE.AxesHelper(1)
+    scene.add(axesHelper)
+
     var fp=gui.addFolder("Position")
     var fr=gui.addFolder("Rotation")
     var fc=gui.addFolder("Color")
